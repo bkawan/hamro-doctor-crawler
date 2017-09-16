@@ -10,5 +10,12 @@ import scrapy
 
 class HamrodoctorItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    name = scrapy.Field()
+    address = scrapy.Field()
+    email = scrapy.Field()
+    website = scrapy.Field()
+    phone = scrapy.Field()
+    fax = scrapy.Field()
+    short_description = scrapy.Field()
+    district = scrapy.Field()
+    # pass
