@@ -12,6 +12,7 @@ class HamrodoctorSpider(scrapy.Spider):
     def parse(self, response):
         districts = response.xpath("//select[@id='HospitalDistrict']/option/@value").extract()
         districts = [x for x in districts if x]
+        # districts = ['Kathmandu']
 
         for district in districts:
             yield scrapy.http.FormRequest.from_response(
@@ -32,6 +33,14 @@ class HamrodoctorSpider(scrapy.Spider):
         for hospital in hospitals:
             yield scrapy.Request('{}{}'.format(self.base_url, hospital),
                                  callback=self.get_hospital_detail,
+                                 dont_filter=True,
+                                 meta={'district': response.meta['district']}
+                                 )
+
+        pagination_next = response.xpath("//li/a[@rel='next']/@href").extract_first()
+        if pagination_next:
+            yield scrapy.Request('{}{}'.format(self.base_url, pagination_next),
+                                 callback=self.find_hospitals_in_disctict,
                                  meta={'district': response.meta['district']}
                                  )
 
