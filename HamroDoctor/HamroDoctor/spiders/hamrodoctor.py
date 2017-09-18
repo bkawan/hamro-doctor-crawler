@@ -60,7 +60,10 @@ class HamrodoctorSpider(scrapy.Spider):
         }
         for li in li_selectors:
             k = li.xpath(".//span/text()").extract_first().strip().lower()
-            v = li.xpath("text()").extract_first()
+            if k in ['email', 'website']:
+                v = li.xpath(".//a/text()").extract_first()
+            else:
+                v = li.xpath("text()").extract_first()
             data.update({
                 k: v
             })
