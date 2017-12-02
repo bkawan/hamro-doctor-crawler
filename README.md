@@ -4,7 +4,7 @@
 ### Installation
 
 
-` mkvirtualenv scrapyenv --python=ptyhon3 `
+``` $ mkvirtualenv scrapyenv --python=ptyhon3 ```
 
 ``` $ workon scrapyenv ```
 
